@@ -26,6 +26,10 @@ const swaggerOptions = {
       }
     },
     servers: [
+        {
+            url: `https://car-management-production.up.railway.app/`,  // Update with your deployed server URL
+            description: 'Production server'
+          },
       {
         url: `http://localhost:5000`,
         description: 'Development server'
