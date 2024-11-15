@@ -7,7 +7,20 @@ const { signup, login } = require('./controllers/authController');
 const cors = require('cors');
 
 // Middleware
-app.use(cors());
+const allowedOrigins = ['http://localhost:3000']; // Add localhost for local dev
+
+app.use(cors({
+  origin: function(origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      // allow requests with no origin (like mobile apps or curl requests)
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(express.json());
 
 // Routes
