@@ -18,9 +18,14 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Make sure OPTIONS is allowed
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // Add necessary headers
+  preflightContinue: false, // Don't pass the CORS preflight request to the next middleware
+  optionsSuccessStatus: 200, // For legacy browsers that don't support 204
 }));
+
+// Handle OPTIONS requests
+app.options('*', cors());
 app.use(express.json());
 
 // Routes
